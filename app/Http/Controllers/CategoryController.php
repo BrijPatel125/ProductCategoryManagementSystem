@@ -1,3 +1,4 @@
+<?php 
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -13,8 +14,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $parents = Category::all();
-        return view('admin.categories.create', compact('parents'));
+        $categories = Category::all();
+        return view('admin.categories.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -34,8 +35,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $parents = Category::all();
-        return view('admin.categories.edit', compact('category', 'parents'));
+        $categories = Category::all();
+        return view('admin.categories.edit', compact('category', 'categories'));
     }
 
     public function update(Request $request, Category $category)
