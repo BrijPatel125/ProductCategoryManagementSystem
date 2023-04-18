@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Categories
+            Products
         </h2>
     </x-slot>
     <div class="py-12">
@@ -18,7 +18,6 @@
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Image</th>
                                     <th>Price</th>
                                     <th>Category</th>
                                     <th width="280px">Action</th>
@@ -94,10 +93,8 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
             {data: 'description', name: 'description'},
-            {data: 'image', name: 'image'},
             {data: 'price', name: 'price'},
             {data: 'category_id', name: 'category_id'},
-
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -118,9 +115,8 @@
             $('#ajaxModel').modal('show');
             $('#product_id').val(data.id);
             $('#name').val(data.name);
-            $('#detail').val(data.description);
+            $('#description').val(data.description);
             $('#price').val(data.price);
-
         })
     });
       
