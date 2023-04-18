@@ -37,6 +37,12 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('products.index')">
+                            Products
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('categories.index')">
+                            Categories
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

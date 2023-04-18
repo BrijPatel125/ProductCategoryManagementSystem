@@ -1,16 +1,35 @@
+<?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use DataTables;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->get();
 
-        return view('admin.products.index', compact('products'));
+        if ($request->ajax()) {
+
+            $data = Product::with('category')->latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.products.index');
     }
 
     public function create()
@@ -34,13 +53,12 @@ class ProductController extends Controller
         }
 
         $product = Product::create($validated);
-
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
+        return response()->json(['success' => 'Product created successfully.']);
     }
 
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        return response()->json($product);
     }
 
     public function update(Request $request, Product $product)
@@ -60,15 +78,13 @@ class ProductController extends Controller
         }
 
         $product->update($validated);
-
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+        return response()->json(['success' => 'Product updated successfully.']);
     }
 
     public function destroy(Product $product)
     {
-        Storage::delete($product->image);
+        // Storage::delete($product->image);
         $product->delete();
-
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+        return response()->json(['success' => 'Product deleted successfully.']);
     }
 }
