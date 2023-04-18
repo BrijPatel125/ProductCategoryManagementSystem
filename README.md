@@ -6,7 +6,7 @@
    5. php artisan db:seed
    6. php artisan key:generate
    7. php artisan serve
-
+# checkout to master branch
 # you will get the email from user table and password will be - password 
 # for now we have added middleware restriction for product controller only.
 # we hae consider 2 role - admin, user  
